@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {accessId, APIkey} from '../secrets.js'
+import {accessId, APIkey} from '../secrets.js';
+import profile from '../images/profile.jpg';
 
 class Welcome extends Component {
 
@@ -50,16 +51,16 @@ class Welcome extends Component {
     return (
       <div className="Welcome section">
 
-        <h1 className="welcome-intro"><strong>Matt Thorry</strong> is a <strong>full stack web engineer, educator </strong>&<strong> all-around good person</strong> living in {currentWeather}<img src={icons[this.state.current.icon]} alt='' className='weatherIcon'/> New York City
+      <h1 className="welcome-intro"><strong>Abdullah Khan Zehady (Andy)</strong> <br/>is a <br/><strong>PhD student </strong>&<strong> Computational Researcher</strong> <br/>living in West Lafayette, Indiana. 
         <br/>
         <br/>
           <a href="https://linkedin.com/in/mthorry" target="_blank" rel="noopener noreferrer"><i className="fa fa-linkedin-square i-hov" aria-hidden="true"/></a>  <a href="https://medium.com/@mthorry" target="_blank" rel="noopener noreferrer"><i className="fa fa-medium i-hov" aria-hidden="true"/></a>  <a href="https://github.com/mthorry" target="_blank" rel="noopener noreferrer"><i className="fa fa-github i-hov" aria-hidden="true"/></a>  <a href="mailto:mthorry@gmail.com?Subject=Hello%20there!" target="_top"><i className="fa fa-envelope i-hov" aria-hidden="true"/></a>
         <br/>
-          <a href="https://drive.google.com/file/d/1tllGBa8TO6BHuf-Bcljx_ylwLy6ECnbo/view?usp=sharing" target="_blank" rel="noopener noreferrer"><button className="button resume-button">Resume <i className="fa fa-file-pdf-o" aria-hidden="true"/></button></a>
+          <a href="https://drive.google.com/file/d/1UrMQoP04ea3DNk3hNpAchTuPM1ZXHI9H/view?usp=sharing" target="_blank" rel="noopener noreferrer"><button className="button resume-button">Resume <i className="fa fa-file-pdf-o" aria-hidden="true"/></button></a>
 
 
         </h1>
-        <img src="https://pbs.twimg.com/profile_images/936284824767205376/yu8sFzhm_400x400.jpg" className="main-pic"/>
+        <img src={profile} className="main-pic"/>
       </div>
     );
   }

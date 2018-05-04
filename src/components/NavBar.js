@@ -6,7 +6,7 @@ class NavBar extends Component {
       <div>
         <ul className="NavBar">
 
-          <li className="nav-item nav-name">MGT</li>
+          <li className="nav-item nav-name">A Z</li>
           <li className="nav-item nav-last"><a href="#footer" className="nav-link">Contact</a></li>
           <li className="nav-item"><a href="#teaching" className="nav-link">Teaching</a></li>
           <li className="nav-item"><a href="#blog" className="nav-link">Blog</a></li>
