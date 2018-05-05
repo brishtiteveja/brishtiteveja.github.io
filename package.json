@@ -2,7 +2,7 @@
   "name": "andys_personal_webpage",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://brishtiteveja.github.io/andyzehady",
+  "homepage": "http://brishtiteveja.github.io",
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
