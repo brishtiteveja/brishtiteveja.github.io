@@ -20,7 +20,7 @@ class App extends Component {
           </div>
         <h2 className="heading" id="projects">PROJECTS</h2>
           <Projects />
-        <h2 className="heading" id="about">ABOUT</h2>
+        <h2 className="heading" id="about">ABOUT ME</h2>
           <About />
         <h2 className="heading" id="blog">BLOG</h2>
           <Blog />
