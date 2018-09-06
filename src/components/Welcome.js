@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {accessId, APIkey} from '../secrets.js';
-import profile from '../images/me.jpg';
+import me from '../images/me.jpg';
 
 class Welcome extends Component {
 
@@ -60,7 +60,7 @@ class Welcome extends Component {
 
 
         </h1>
-        <img src={profile} className="main-pic"/>
+        <img src={me} className="main-pic"/>
       </div>
     );
   }
