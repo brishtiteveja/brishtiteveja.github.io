@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import profilePhoto from './images/profile.jpg';
 
 const scholarUrl =
   'https://scholar.google.com/scholar?q=%22Abdullah+Khan+Zehady%22';
@@ -36,7 +37,7 @@ const updates = [
 
 const work = [
   {
-    index: '01',
+    index: 'PRODUCT',
     status: 'Founder & CEO',
     title: 'Perspectivity',
     description:
@@ -52,7 +53,26 @@ const work = [
     accent: 'blue',
   },
   {
-    index: '02',
+    index: 'MOTION',
+    status: 'Creator',
+    title: 'Motionfold',
+    description:
+      'A cinematic, brand-decoupled React motion system that turns product recordings into reusable scroll, reveal, parallax, and depth primitives.',
+    tags: ['Scrollytelling', 'React', 'Motion systems'],
+    links: [
+      {
+        label: 'Explore Motionfold',
+        href: 'https://github.com/brishtiteveja/VidToCode/tree/main/packages/motionfold',
+      },
+      {
+        label: 'VidToCode',
+        href: 'https://github.com/brishtiteveja/VidToCode',
+      },
+    ],
+    accent: 'violet',
+  },
+  {
+    index: 'OPEN AI',
     status: 'Research lead',
     title: 'BanglaLLM',
     description:
@@ -71,7 +91,22 @@ const work = [
     accent: 'cyan',
   },
   {
-    index: '03',
+    index: 'EDTECH',
+    status: 'AITX double winner',
+    title: '8kEdu',
+    description:
+      'A recursive intelligence learning environment that turns a topic into an adaptive, inspectable path through explanations, evidence, and follow-up questions.',
+    tags: ['AI tutors', 'Recursive agents', 'Nemotron'],
+    links: [
+      {
+        label: 'Open the project',
+        href: 'https://dev.perspectivity.co/8kedu/',
+      },
+    ],
+    accent: 'amber',
+  },
+  {
+    index: 'RELIABILITY',
     status: 'AI research engineer',
     title: 'Reliable AI systems',
     description:
@@ -81,7 +116,7 @@ const work = [
     accent: 'violet',
   },
   {
-    index: '04',
+    index: 'SCIENCE',
     status: 'Lead developer & researcher',
     title: 'TimeScale Creator',
     description:
@@ -269,16 +304,25 @@ function Header() {
 }
 
 function FieldMap() {
+  const depthSignals = ['AI', 'B–NLP', 'RCA', '20K+', 'AGENTS', 'GEO'];
+
   return (
     <div
       className="field-map"
-      role="img"
+      role="group"
       aria-label="A map connecting Abdullah's work in AI systems, language, reliability, and science"
     >
       <div className="field-map-grid" aria-hidden="true" />
+      <div className="depth-stream" aria-hidden="true">
+        {depthSignals.map((signal, index) => (
+          <span className={`depth-signal depth-signal-${index + 1}`} key={signal}>
+            {signal}
+          </span>
+        ))}
+      </div>
       <div className="map-meta">
-        <span>FIELD MAP</span>
-        <span>04 DOMAINS / ONE THROUGH-LINE</span>
+        <span>LIVE FIELD MAP</span>
+        <span>SCROLL / DEPTH / ONE THROUGH-LINE</span>
       </div>
 
       <div className="map-orbit map-orbit-outer" aria-hidden="true" />
@@ -289,8 +333,14 @@ function FieldMap() {
       <span className="map-connector connector-four" aria-hidden="true" />
 
       <div className="map-center">
-        <span>I make complex systems</span>
-        <strong>legible.</strong>
+        <img
+          src={profilePhoto}
+          alt="Abdullah Khan Zehady"
+          className="map-portrait"
+        />
+        <span className="portrait-name" aria-hidden="true">
+          ANDY / ABDULLAH
+        </span>
       </div>
 
       <div className="map-node node-ai">
@@ -343,7 +393,23 @@ function Hero() {
           <div className="hero-proof" aria-label="Current roles and education">
             <div>
               <span>Now</span>
-              <strong>Perspectivity · Ciroos</strong>
+              <strong className="hero-role-links">
+                <a
+                  href="https://perspectivity.co/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Perspectivity
+                </a>
+                <span aria-hidden="true">·</span>
+                <a
+                  href="https://ciroos.ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Ciroos
+                </a>
+              </strong>
             </div>
             <div>
               <span>Previously</span>
@@ -368,7 +434,7 @@ function Latest() {
       id="latest"
       aria-labelledby="latest-title"
     >
-      <div className="latest-heading">
+      <div className="latest-heading" data-reveal>
         <p className="section-kicker">Latest</p>
         <h2 id="latest-title">Recent signals.</h2>
         <p>
@@ -377,7 +443,7 @@ function Latest() {
         </p>
       </div>
       <div className="update-list">
-        {updates.map((update) => {
+        {updates.map((update, index) => {
           const content = (
             <React.Fragment>
               <span className="update-date">{update.date}</span>
@@ -399,6 +465,8 @@ function Latest() {
                 target="_blank"
                 rel="noopener noreferrer"
                 key={update.title}
+                data-reveal
+                data-reveal-delay={index * 70}
               >
                 {content}
               </a>
@@ -406,7 +474,12 @@ function Latest() {
           }
 
           return (
-            <div className="update-row" key={update.title}>
+            <div
+              className="update-row"
+              key={update.title}
+              data-reveal
+              data-reveal-delay={index * 70}
+            >
               {content}
             </div>
           );
@@ -416,10 +489,10 @@ function Latest() {
   );
 }
 
-function Work() {
+function Work({ railRef, onRailScroll, onScrollWork }) {
   return (
     <section className="section work-section" id="work" aria-labelledby="work-title">
-      <div className="section-heading">
+      <div className="section-heading" data-reveal>
         <p className="section-kicker">Selected work</p>
         <h2 id="work-title">Research that ships.</h2>
         <p>
@@ -427,11 +500,43 @@ function Work() {
           system—data, evaluation, agents, interfaces, and deployment.
         </p>
       </div>
-      <div className="work-grid">
-        {work.map((item) => (
-          <article className={`work-card accent-${item.accent}`} key={item.title}>
+      <div className="work-controls" data-reveal>
+        <span>Drag, scroll, or use the arrows</span>
+        <div>
+          <button
+            type="button"
+            onClick={() => onScrollWork(-1)}
+            aria-label="Show previous project"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            onClick={() => onScrollWork(1)}
+            aria-label="Show next project"
+          >
+            →
+          </button>
+        </div>
+      </div>
+      <div className="work-progress" aria-hidden="true">
+        <span />
+      </div>
+      <div
+        className="work-grid"
+        ref={railRef}
+        onScroll={onRailScroll}
+        aria-label="Selected projects"
+      >
+        {work.map((item, index) => (
+          <article
+            className={`work-card accent-${item.accent}`}
+            key={item.title}
+            data-reveal
+            data-reveal-delay={Math.min(index * 60, 240)}
+          >
             <div className="work-card-topline">
-              <span className="work-index">{item.index}</span>
+              <span className="work-domain">{item.index}</span>
               <span className="work-status">{item.status}</span>
             </div>
             <h3>{item.title}</h3>
@@ -461,13 +566,18 @@ function Recognition() {
       className="section recognition-section"
       aria-labelledby="recognition-title"
     >
-      <div className="section-heading section-heading-light">
+      <div className="section-heading section-heading-light" data-reveal>
         <p className="section-kicker">Selected signals</p>
         <h2 id="recognition-title">Evidence over adjectives.</h2>
       </div>
       <div className="recognition-grid">
-        {recognition.map((item) => (
-          <article className="recognition-item" key={item.label}>
+        {recognition.map((item, index) => (
+          <article
+            className="recognition-item"
+            key={item.label}
+            data-reveal
+            data-reveal-delay={index * 70}
+          >
             <strong>{item.value}</strong>
             <h3>{item.label}</h3>
             <p>{item.detail}</p>
@@ -491,7 +601,7 @@ function Research() {
       id="research"
       aria-labelledby="research-title"
     >
-      <div className="research-intro">
+      <div className="research-intro" data-reveal>
         <div className="section-heading">
           <p className="section-kicker">Peer-reviewed research</p>
           <h2 id="research-title">Across language and deep time.</h2>
@@ -512,8 +622,13 @@ function Research() {
         </div>
       </div>
       <div className="publication-list">
-        {publications.map((publication) => (
-          <article className="publication" key={publication.title}>
+        {publications.map((publication, index) => (
+          <article
+            className="publication"
+            key={publication.title}
+            data-reveal
+            data-reveal-delay={Math.min(index * 55, 220)}
+          >
             <div className="publication-rail">
               <span className="publication-year">{publication.year}</span>
               <span className="publication-area">{publication.area}</span>
@@ -552,12 +667,12 @@ function Research() {
 function Career() {
   return (
     <section className="section career-section" aria-labelledby="career-title">
-      <div className="section-heading">
+      <div className="section-heading" data-reveal>
         <p className="section-kicker">Career</p>
         <h2 id="career-title">A builder across disciplines.</h2>
       </div>
       <div className="career-track">
-        <article className="career-entry is-current">
+        <article className="career-entry is-current" data-reveal>
           <div className="career-date">2025—now</div>
           <div>
             <p className="career-org">Ciroos · Perspectivity</p>
@@ -569,7 +684,7 @@ function Career() {
             </p>
           </div>
         </article>
-        <article className="career-entry">
+        <article className="career-entry" data-reveal>
           <div className="career-date">2020—2025</div>
           <div>
             <p className="career-org">Cisco</p>
@@ -581,7 +696,7 @@ function Career() {
             </p>
           </div>
         </article>
-        <article className="career-entry">
+        <article className="career-entry" data-reveal>
           <div className="career-date">2014—2020</div>
           <div>
             <p className="career-org">Purdue University · TimeScale Creator</p>
@@ -593,7 +708,7 @@ function Career() {
             </p>
           </div>
         </article>
-        <article className="career-entry">
+        <article className="career-entry" data-reveal>
           <div className="career-date">Japan</div>
           <div>
             <p className="career-org">Osaka University · GREE · Rakuten</p>
@@ -612,7 +727,7 @@ function Career() {
 function About() {
   return (
     <section className="about-section" id="about" aria-labelledby="about-title">
-      <div className="about-statement">
+      <div className="about-statement" data-reveal>
         <p className="section-kicker">About</p>
         <h2 id="about-title">
           The domain changes.
@@ -620,7 +735,7 @@ function About() {
           The question stays the same.
         </h2>
       </div>
-      <div className="about-copy">
+      <div className="about-copy" data-reveal data-reveal-delay="90">
         <p className="about-lede">
           How do we turn a system too large for one person to hold in their head
           into something they can explore, question, and trust?
@@ -657,7 +772,7 @@ function About() {
 function Footer() {
   return (
     <footer className="site-footer" id="contact">
-      <div className="footer-main">
+      <div className="footer-main" data-reveal>
         <p className="section-kicker">Let’s compare notes</p>
         <h2>Working on a hard system?</h2>
         <p>
@@ -688,23 +803,186 @@ function Footer() {
   );
 }
 
-function App() {
-  return (
-    <div className="App">
-      <a className="skip-link" href="#work">
-        Skip to selected work
-      </a>
-      <Header />
-      <Hero />
-      <Latest />
-      <Work />
-      <Recognition />
-      <Research />
-      <Career />
-      <About />
-      <Footer />
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.rootRef = React.createRef();
+    this.workRailRef = React.createRef();
+    this.motionFrame = null;
+    this.revealObserver = null;
+    this.handleMotionFrame = this.handleMotionFrame.bind(this);
+    this.scrollWork = this.scrollWork.bind(this);
+  }
+
+  componentDidMount() {
+    if (typeof window === 'undefined' || !this.rootRef.current) {
+      return;
+    }
+
+    const root = this.rootRef.current;
+    const reducedMotion =
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealNodes = root.querySelectorAll('[data-reveal]');
+
+    revealNodes.forEach((node) => {
+      const delay = Number(node.getAttribute('data-reveal-delay') || 0);
+      node.style.transitionDelay = `${delay}ms`;
+    });
+
+    if (!reducedMotion && 'IntersectionObserver' in window) {
+      this.revealObserver = new window.IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              this.revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.16, rootMargin: '0px 0px -5% 0px' }
+      );
+
+      revealNodes.forEach((node) => this.revealObserver.observe(node));
+      root.classList.add('motion-ready');
+      window.addEventListener('scroll', this.handleMotionFrame);
+      window.addEventListener('resize', this.handleMotionFrame);
+    } else {
+      revealNodes.forEach((node) => node.classList.add('is-visible'));
+    }
+
+    this.updateMotion();
+  }
+
+  componentWillUnmount() {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    window.removeEventListener('scroll', this.handleMotionFrame);
+    window.removeEventListener('resize', this.handleMotionFrame);
+
+    if (this.revealObserver) {
+      this.revealObserver.disconnect();
+    }
+
+    if (this.motionFrame && window.cancelAnimationFrame) {
+      window.cancelAnimationFrame(this.motionFrame);
+    }
+  }
+
+  handleMotionFrame() {
+    if (this.motionFrame || !window.requestAnimationFrame) {
+      if (!window.requestAnimationFrame) {
+        this.updateMotion();
+      }
+      return;
+    }
+
+    this.motionFrame = window.requestAnimationFrame(() => {
+      this.motionFrame = null;
+      this.updateMotion();
+    });
+  }
+
+  updateMotion() {
+    const root = this.rootRef.current;
+
+    if (!root || typeof window === 'undefined') {
+      return;
+    }
+
+    const pageRange = Math.max(
+      document.documentElement.scrollHeight - window.innerHeight,
+      1
+    );
+    const pageProgress = Math.min(
+      Math.max(window.pageYOffset / pageRange, 0),
+      1
+    );
+    root.style.setProperty('--page-progress', pageProgress);
+
+    const fieldMap = root.querySelector('.field-map');
+    const hero = root.querySelector('.hero');
+
+    if (fieldMap && hero) {
+      const heroRect = hero.getBoundingClientRect();
+      const heroCenter = heroRect.top + heroRect.height / 2;
+      const viewportCenter = window.innerHeight / 2;
+      const fieldShift = Math.max(
+        -10,
+        Math.min(24, (viewportCenter - heroCenter) * 0.045)
+      );
+      fieldMap.style.setProperty('--field-shift', `${fieldShift}px`);
+    }
+
+    const rail = this.workRailRef.current;
+
+    if (!rail || !rail.clientWidth) {
+      return;
+    }
+
+    const railRange = Math.max(rail.scrollWidth - rail.clientWidth, 1);
+    const railProgress = Math.min(Math.max(rail.scrollLeft / railRange, 0), 1);
+    root.style.setProperty('--work-progress', railProgress);
+
+    const railRect = rail.getBoundingClientRect();
+    const railCenter = railRect.left + railRect.width / 2;
+    const cards = rail.querySelectorAll('.work-card');
+
+    cards.forEach((card) => {
+      const cardRect = card.getBoundingClientRect();
+      const cardCenter = cardRect.left + cardRect.width / 2;
+      const distance = Math.min(
+        Math.abs(cardCenter - railCenter) / Math.max(railRect.width, 1),
+        1
+      );
+
+      card.style.setProperty('--card-scale', (1 - distance * 0.055).toFixed(3));
+      card.style.setProperty('--card-lift', `${(distance * 18).toFixed(1)}px`);
+      card.style.setProperty('--card-opacity', (1 - distance * 0.22).toFixed(3));
+    });
+  }
+
+  scrollWork(direction) {
+    const rail = this.workRailRef.current;
+
+    if (!rail) {
+      return;
+    }
+
+    const distance = rail.clientWidth * 0.78 * direction;
+
+    if (rail.scrollBy) {
+      rail.scrollBy({ left: distance, behavior: 'smooth' });
+    } else {
+      rail.scrollLeft += distance;
+    }
+  }
+
+  render() {
+    return (
+      <div className="App" ref={this.rootRef}>
+        <div className="page-progress" aria-hidden="true" />
+        <a className="skip-link" href="#work">
+          Skip to selected work
+        </a>
+        <Header />
+        <Hero />
+        <Latest />
+        <Work
+          railRef={this.workRailRef}
+          onRailScroll={this.handleMotionFrame}
+          onScrollWork={this.scrollWork}
+        />
+        <Recognition />
+        <Research />
+        <Career />
+        <About />
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default App;
